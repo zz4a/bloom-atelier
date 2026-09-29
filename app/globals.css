@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Material Design 3 color roles (RGB channels so Tailwind opacity works) */
+:root {
+  --md-primary: 84 112 82;            /* sage green */
+  --md-on-primary: 255 255 255;
+  --md-primary-container: 214 233 208;
+  --md-on-primary-container: 17 32 16;
+  --md-secondary: 158 74 96;          /* soft rose */
+  --md-on-secondary: 255 255 255;
+  --md-secondary-container: 255 217 224;
+  --md-on-secondary-container: 62 0 24;
+  --md-surface: 255 251 245;          /* cream */
+  --md-surface-container: 246 240 229;
+  --md-surface-high: 238 231 219;
+  --md-on-surface: 29 27 23;
+  --md-on-surface-variant: 78 74 66;
+  --md-outline: 128 122 112;
+}
+.dark {
+  --md-primary: 160 208 152;          /* forest, lifted */
+  --md-on-primary: 12 56 14;
+  --md-primary-container: 42 79 40;
+  --md-on-primary-container: 187 235 178;
+  --md-secondary: 240 176 192;
+  --md-on-secondary: 84 18 40;
+  --md-secondary-container: 100 40 62; /* muted plum */
+  --md-on-secondary-container: 255 217 224;
+  --md-surface: 24 22 25;              /* deep charcoal */
+  --md-surface-container: 33 30 34;
+  --md-surface-high: 44 40 45;
+  --md-on-surface: 231 225 228;
+  --md-on-surface-variant: 205 196 202;
+  --md-outline: 152 143 148;
+}
+
+html { scroll-behavior: smooth; }
+body { @apply bg-surface text-on-surface font-sans antialiased transition-colors duration-500; }
+:focus-visible { outline: 2px solid rgb(var(--md-primary)); outline-offset: 3px; }
+
+/* Ripple */
+.ripple {
+  position: absolute; border-radius: 9999px; background: currentColor; pointer-events: none;
+  animation: ripple 600ms ease-out forwards;
+}
+@keyframes ripple { from { transform: scale(0); opacity: .3; } to { transform: scale(1); opacity: 0; } }
+
+/* Shimmer CTA */
+.shimmer::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / .35) 50%, transparent 70%);
+  animation: shimmer 3.2s ease-in-out infinite;
+}
+@keyframes shimmer { 0%, 55% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .shimmer::after, .ripple { animation: none; }
+}
